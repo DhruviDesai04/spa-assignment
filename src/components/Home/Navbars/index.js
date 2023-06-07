@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { UserOutlined, MenuOutlined, PlusOutlined, SearchOutlined } from '@ant-design/icons';
 import { Menu, Input, Button, Dropdown, Row, Drawer, Divider } from 'antd';
 
-import './Navbars.css';
+import './index.css';
 
 const Navbars = () => {
     const [current, setCurrent] = useState('mail');

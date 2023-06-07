@@ -1,17 +1,15 @@
 import React from "react";
-
-import Navbars from "./Navbars/Navbars";
+import Navbars from "./Navbars/index";
+import Items from "./Items/index";
 import './Home.css';
 
 const Home = () => {
     return (
         <section className="home" id="home">
-            <Navbars />
             <div className="home-content">
                 <div className="main-container">
-                    <div className="home-heading d-flex flex-column justify-content-center align-items-center">
-                        <h1>Home</h1>
-                    </div>
+                    <Navbars />
+                    <Items />
                 </div>
             </div>
         </section>
