@@ -1,38 +1,91 @@
-.App {
-  text-align: center;
+/* font-family: 'Poppins', sans-serif; */
+
+:root {
+  /* Fonts */
+  --poppins: "Poppins", sans-serif;
+
+  /* Colors */
+  --primary: #5430BB;
+  --black: #303030;
+  --white: #ffffff;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* Box sizing */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  outline: none;
+  scroll-behavior: smooth;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* Globally Elements */
+li {
+  list-style: none;
 }
 
-.App-header {
-  background-color: #282c34;
+a {
+  text-decoration: none;
+}
+
+/* Reset margins */
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+p {
+  margin: 0;
+}
+
+.navbar-toggler {
+  z-index: 100 !important;
+}
+
+.btn-check:active+.btn-primary:focus,
+.btn-check:checked+.btn-primary:focus,
+.btn-primary.active:focus,
+.btn-primary:active:focus,
+.show>.btn-primary.dropdown-toggle:focus {
+  box-shadow: none !important;
+  transition: none !important;
+}
+
+/* set up the body */
+body {
+  line-height: 1.5;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  background: #ffffff;
+  color: #F5F5F5;
 }
 
-.App-link {
-  color: #61dafb;
+/* make images easier to work with */
+img {
+  max-width: 100%;
+  display: block;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+/* Remove Outline on Buttons */
+input[type="button"]:active {
+  outline: none;
+}
+
+input[type="button"]::-moz-focus-inner {
+  outline: none;
+  border: none;
+}
+
+.main-container {
+  width: 85%;
+  margin: 0 auto;
+  height: auto;
+}
+
+@media only screen and (max-width: 992px) {
+  .main-container {
+    width: 90%;
   }
 }
