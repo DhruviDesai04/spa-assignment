@@ -78,6 +78,22 @@ input[type="button"]::-moz-focus-inner {
   border: none;
 }
 
+.d-flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.d-flex-btw {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.w-100 {
+  width: 100%;
+}
+
 .main-container {
   width: 85%;
   margin: 0 auto;

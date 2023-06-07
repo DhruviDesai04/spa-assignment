@@ -1,0 +1,45 @@
+.ant-divider-horizontal {
+    margin: 8px 0;
+}
+
+:where(.css-dev-only-do-not-override-dfjnss).ant-menu-light .ant-menu-item-selected,
+:where(.css-dev-only-do-not-override-dfjnss).ant-menu-light>.ant-menu .ant-menu-item-selected {
+    background-color: transparent !important;
+    color: var(--primary);
+}
+
+:where(.css-dev-only-do-not-override-dfjnss).ant-menu-horizontal .ant-menu-item,
+:where(.css-dev-only-do-not-override-dfjnss).ant-menu-horizontal .ant-menu-submenu {
+    padding: 0 10px;
+}
+
+:where(.css-dev-only-do-not-override-dfjnss).ant-input-group-wrapper {
+    vertical-align: middle;
+}
+
+:where(.css-dev-only-do-not-override-dfjnss).ant-btn-primary {
+    color: #fff;
+    background-color: var(--primary);
+    box-shadow: none;
+    border: 1px solid transparent;
+}
+
+:where(.css-dev-only-do-not-override-dfjnss).ant-btn-primary:not(:disabled):hover {
+    color: var(--primary);
+    background-color: var(--white);
+    box-shadow: none;
+    border: 1px solid var(--primary);
+}
+
+:where(.css-dev-only-do-not-override-dfjnss).ant-menu-light .ant-menu-item:not(.ant-menu-item-disabled):focus-visible,
+:where(.css-dev-only-do-not-override-dfjnss).ant-menu-light>.ant-menu .ant-menu-item:not(.ant-menu-item-disabled):focus-visible,
+:where(.css-dev-only-do-not-override-dfjnss).ant-menu-light .ant-menu-submenu-title:not(.ant-menu-item-disabled):focus-visible,
+:where(.css-dev-only-do-not-override-dfjnss).ant-menu-light>.ant-menu .ant-menu-submenu-title:not(.ant-menu-item-disabled):focus-visible,
+:where(.css-dev-only-do-not-override-dfjnss).ant-btn:not(:disabled):focus-visible {
+    outline: none !important;
+}
+
+:where(.css-dev-only-do-not-override-dfjnss).ant-menu-horizontal .ant-menu-item,
+:where(.css-dev-only-do-not-override-dfjnss).ant-menu-horizontal .ant-menu-submenu-title {
+    transition: none !important;
+}
