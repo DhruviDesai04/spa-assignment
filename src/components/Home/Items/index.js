@@ -62,6 +62,7 @@ const items = [
 const Items = () => {
     const [gData, setGData] = useState(defaultData);
     const [expandedKeys] = useState(['0-0', '0-0-0', '0-0-0-0']);
+    const [activeNode, setActiveNode] = useState(null);
 
     const onDragEnter = (info) => {
         console.log(info);
@@ -133,6 +134,16 @@ const Items = () => {
         setGData([...gData, newNode]);
     };
 
+    const handleNodeClick = (node) => {
+        console.log("*", node);
+        console.log("**", node.children.length);
+        if (node.children.length == 0) {
+            setActiveNode(node.key);
+        } else {
+            setActiveNode(node.children);
+        }
+    };
+
     const renderTitle = (node) => {
         const handleAddChild = () => {
             if (!node.children) {
@@ -163,9 +174,16 @@ const Items = () => {
             setGData([...gData]);
         };
 
+        const isActive = activeNode && activeNode.key === node.key;
+
         return (
             <Space>
-                <span>{node.title}</span>
+                <span
+                    className={isActive ? 'active-node' : ''}
+                    onClick={() => handleNodeClick(node)}
+                >
+                    {node.title}
+                </span>
                 <Button
                     icon={<PlusOutlined />}
                     size="small"
@@ -179,7 +197,7 @@ const Items = () => {
             </Space>
         );
     };
-
+    console.log("*", activeNode);
     return (
         <div className="nav-tabs">
             <Row>
@@ -209,7 +227,18 @@ const Items = () => {
                                             />
                                         </Col>
                                         <Col span={24} md={16} lg={18}>
-                                            {item.children}
+                                            {/* {activeNode && activeNode.map((childNode) => (
+                                                <div key={childNode.key}>{childNode.title}</div>
+                                            ))} */}
+                                            {activeNode && Array.isArray(activeNode) ? (
+                                                (
+                                                    activeNode && activeNode.length > 0 && activeNode.map((childNode) => (
+                                                        <div key={childNode.key}>{childNode.title}</div>
+                                                    ))
+                                                )
+                                            ) :
+                                                <div>{activeNode}</div>
+                                            }
                                         </Col>
                                     </Row>
                                 )}
