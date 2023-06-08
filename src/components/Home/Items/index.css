@@ -2,6 +2,10 @@
     width: 100%;
 }
 
+.nav-top-tabs .ant-tabs-nav .ant-tabs-tab-active {
+    border-bottom: none;
+}
+
 .ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn,
 .ant-tabs .ant-tabs-tab:hover {
     color: var(--primary);

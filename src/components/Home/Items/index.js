@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 import { Tabs, Row, Col, Divider, Tree, Button, Space } from 'antd';
 import { PlusOutlined, MinusOutlined, EditOutlined, CheckOutlined } from '@ant-design/icons';
 
@@ -62,9 +64,24 @@ const items = [
 const Items = () => {
     const [gData, setGData] = useState(defaultData);
     const [expandedKeys] = useState(['0-0', '0-0-0', '0-0-0-0']);
-    const [activeNode, setActiveNode] = useState(null);
+    const [selectedNode, setSelectedNode] = useState(null);
     const [editNodeKey, setEditNodeKey] = useState(null);
     const [editNodeName, setEditNodeName] = useState('');
+    const [editMode, setEditMode] = useState(false);
+    const [editedContent, setEditedContent] = useState('');
+
+    useEffect(() => {
+        // Load data from local storage
+        const dataFromStorage = localStorage.getItem('gData');
+        if (dataFromStorage) {
+            setGData(JSON.parse(dataFromStorage));
+        }
+    }, []);
+
+    useEffect(() => {
+        // Save data to local storage whenever gData changes
+        localStorage.setItem('gData', JSON.stringify(gData));
+    }, [gData]);
 
     const onDragEnter = (info) => {
         console.log(info);
@@ -129,6 +146,7 @@ const Items = () => {
         }
         setGData(data);
     };
+
     const handleAddRoot = () => {
         const newNodeKey = `Collection.${gData.length + 1}`;
         const newNode = { title: newNodeKey, key: newNodeKey, children: [] };
@@ -136,12 +154,24 @@ const Items = () => {
     };
 
     const handleNodeClick = (node) => {
-        console.log("*", node);
-        if (node.children.length == 0) {
-            setActiveNode(node.title);
-        } else {
-            setActiveNode(node.children);
+        if (!node.children) {
+            setSelectedNode(node);
         }
+
+        // Enable editing mode and set initial content
+        setEditMode(true);
+        setEditedContent(node.children);
+    };
+
+    const handleSave = () => {
+        // Save the edited content
+        setSelectedNode((prevNode) => ({
+            ...prevNode,
+            children: editedContent
+        }));
+
+        // Disable editing mode
+        setEditMode(false);
     };
 
     const renderTitle = (node) => {
@@ -199,7 +229,9 @@ const Items = () => {
             setEditNodeKey(null);
             setEditNodeName('');
         };
-        const isActive = activeNode && activeNode.key === node.key;
+
+        const isActive = selectedNode && selectedNode.key && selectedNode.key === node.key;
+        const isLeaf = !node.children || node.children.length === 0; // Check if the node is a leaf node
 
         return (
             <Space>
@@ -220,7 +252,7 @@ const Items = () => {
                     <>
                         <span
                             className={isActive ? 'active-node' : ''}
-                            onClick={() => handleNodeClick(node)}
+                            onClick={isLeaf ? () => handleNodeClick(node) : null} // Add click action only for leaf nodes
                         >
                             {node.title}
                         </span>
@@ -246,7 +278,7 @@ const Items = () => {
             </Space>
         );
     };
-    console.log("*", activeNode);
+
     return (
         <div className="nav-tabs">
             <Row>
@@ -277,15 +309,29 @@ const Items = () => {
                                             />
                                         </Col>
                                         <Col span={24} md={16} lg={18}>
-                                            {activeNode && Array.isArray(activeNode) ? (
-                                                (
-                                                    activeNode && activeNode.length > 0 && activeNode.map((childNode) => (
-                                                        <div key={childNode.key}>{childNode.title}</div>
-                                                    ))
-                                                )
-                                            ) :
-                                                <div>{activeNode}</div>
-                                            }
+                                            {editMode ? (
+                                                <div>
+                                                    <ReactQuill
+                                                        value={editedContent}
+                                                        onChange={setEditedContent}
+                                                        modules={{
+                                                            toolbar: [
+                                                                [{ header: [1, 2, 3, 4, 5, 6, false] }],
+                                                                ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+                                                                [{ list: 'ordered' }, { list: 'bullet' }],
+                                                                ['link', 'image'],
+                                                                ['clean'],
+                                                            ],
+                                                        }}
+                                                    />
+                                                    <Button onClick={handleSave}>Save</Button>
+                                                </div>
+                                            ) : (
+                                                <div>
+                                                    <p style={{ padding: "20px" }}>Select node to add Content</p>
+                                                </div>
+                                            )}
+
                                         </Col>
                                     </Row>
                                 )}
