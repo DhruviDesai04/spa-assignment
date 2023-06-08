@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Tabs, Row, Col, Divider, Tree, Button, Space } from 'antd';
-import { PlusOutlined, MinusOutlined } from '@ant-design/icons';
+import { PlusOutlined, MinusOutlined, EditOutlined, CheckOutlined } from '@ant-design/icons';
 
 import './index.css';
 
@@ -10,14 +10,14 @@ const z = 1;
 const defaultData = [];
 
 const generateData = (_level, _preKey, _tns) => {
-    const preKey = _preKey || '0';
+    const preKey = _preKey || 'Collection';
     const tns = _tns || defaultData;
 
     const children = [];
-    for (let i = 0; i < x; i++) {
-        const key = `${preKey}-${i}`;
+    for (let i = 1; i <= x; i++) {
+        const key = `${preKey}.${i}`;
         tns.push({ title: key, key, children: [] });
-        if (i < y) {
+        if (i <= y) {
             children.push(key);
         }
     }
@@ -63,6 +63,8 @@ const Items = () => {
     const [gData, setGData] = useState(defaultData);
     const [expandedKeys] = useState(['0-0', '0-0-0', '0-0-0-0']);
     const [activeNode, setActiveNode] = useState(null);
+    const [editNodeKey, setEditNodeKey] = useState(null);
+    const [editNodeName, setEditNodeName] = useState('');
 
     const onDragEnter = (info) => {
         console.log(info);
@@ -127,18 +129,16 @@ const Items = () => {
         }
         setGData(data);
     };
-
     const handleAddRoot = () => {
-        const newNodeKey = `${gData.length}`;
+        const newNodeKey = `Collection.${gData.length + 1}`;
         const newNode = { title: newNodeKey, key: newNodeKey, children: [] };
         setGData([...gData, newNode]);
     };
 
     const handleNodeClick = (node) => {
         console.log("*", node);
-        console.log("**", node.children.length);
         if (node.children.length == 0) {
-            setActiveNode(node.key);
+            setActiveNode(node.title);
         } else {
             setActiveNode(node.children);
         }
@@ -149,7 +149,8 @@ const Items = () => {
             if (!node.children) {
                 node.children = [];
             }
-            const newNodeKey = `${node.key}-${node.children.length}`;
+            const lastChildIndex = node.children.length + 1;
+            const newNodeKey = `${node.key}.${lastChildIndex}`;
             const newNode = { title: newNodeKey, key: newNodeKey, children: [] };
             node.children.push(newNode);
             setGData([...gData]);
@@ -174,26 +175,74 @@ const Items = () => {
             setGData([...gData]);
         };
 
+        const handleEditNode = () => {
+            setEditNodeKey(node.key);
+            setEditNodeName(node.title);
+        };
+        const handleSaveNode = () => {
+            const loop = (data, key, callback) => {
+                for (let i = 0; i < data.length; i++) {
+                    if (data[i].key === key) {
+                        return callback(data[i], i);
+                    }
+                    if (data[i].children) {
+                        loop(data[i].children, key, callback);
+                    }
+                }
+            };
+
+            loop(gData, editNodeKey, (item) => {
+                item.title = editNodeName;
+            });
+
+            setGData([...gData]);
+            setEditNodeKey(null);
+            setEditNodeName('');
+        };
         const isActive = activeNode && activeNode.key === node.key;
 
         return (
             <Space>
-                <span
-                    className={isActive ? 'active-node' : ''}
-                    onClick={() => handleNodeClick(node)}
-                >
-                    {node.title}
-                </span>
-                <Button
-                    icon={<PlusOutlined />}
-                    size="small"
-                    onClick={() => handleAddChild(node)}
-                />
-                <Button
-                    icon={<MinusOutlined />}
-                    size="small"
-                    onClick={handleRemoveNode}
-                />
+                {editNodeKey === node.key ? (
+                    <>
+                        <input
+                            type="text"
+                            value={editNodeName}
+                            onChange={(e) => setEditNodeName(e.target.value)}
+                        />
+                        <Button
+                            icon={<CheckOutlined />}
+                            size="small"
+                            onClick={handleSaveNode}
+                        />
+                    </>
+                ) : (
+                    <>
+                        <span
+                            className={isActive ? 'active-node' : ''}
+                            onClick={() => handleNodeClick(node)}
+                        >
+                            {node.title}
+                        </span>
+                        <div>
+                            <Button
+                                icon={<PlusOutlined />}
+                                size="small"
+                                onClick={handleAddChild}
+                            />
+                            <Button
+                                icon={<MinusOutlined />}
+                                size="small"
+                                onClick={handleRemoveNode}
+                            />
+                            <Button
+                                icon={<EditOutlined />}
+                                size="small"
+                                onClick={handleEditNode}
+                            />
+                        </div>
+                    </>
+                )}
             </Space>
         );
     };
@@ -207,8 +256,9 @@ const Items = () => {
                             <Tabs.TabPane key={item.key} tab={item.label}>
                                 {item.key === '1' && (
                                     <Row>
-                                        <Col span={24} md={8} lg={6}>
+                                        <Col className="d-flex-column items-tree" span={24} md={8} lg={6}>
                                             <Button
+                                                className="add-collection-btn"
                                                 type="primary"
                                                 icon={<PlusOutlined />}
                                                 onClick={handleAddRoot}
@@ -227,9 +277,6 @@ const Items = () => {
                                             />
                                         </Col>
                                         <Col span={24} md={16} lg={18}>
-                                            {/* {activeNode && activeNode.map((childNode) => (
-                                                <div key={childNode.key}>{childNode.title}</div>
-                                            ))} */}
                                             {activeNode && Array.isArray(activeNode) ? (
                                                 (
                                                     activeNode && activeNode.length > 0 && activeNode.map((childNode) => (
@@ -248,7 +295,6 @@ const Items = () => {
                     </Tabs>
                 </Col>
             </Row>
-            <Divider />
         </div>
     );
 };

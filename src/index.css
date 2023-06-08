@@ -36,6 +36,6 @@ code {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-image: linear-gradient(180deg, #B6C0FE 0%, #FDB8F6 35.83%, #FDA7B0 58.19%, #FFBAD9 80.55%);
+  background: #5430BB;
   border-radius: 10px;
 }
