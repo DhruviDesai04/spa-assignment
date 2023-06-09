@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import { Tabs, Row, Col, Divider, Tree, Button, Space } from 'antd';
-import { PlusOutlined, MinusOutlined, EditOutlined, CheckOutlined } from '@ant-design/icons';
+import { Tabs, Row, Col, Tree, Button, Space, Tooltip } from 'antd';
+import { PlusOutlined, DeleteOutlined, EditOutlined, CheckOutlined } from '@ant-design/icons';
+import { items } from "../../utils";
 
 import './index.css';
 
@@ -34,33 +35,6 @@ const generateData = (_level, _preKey, _tns) => {
 };
 generateData(z);
 
-const onChange = (key) => {
-    console.log(key);
-};
-
-const items = [
-    {
-        key: '1',
-        label: `All`,
-        children: `Content of Tab All`,
-    },
-    {
-        key: '2',
-        label: `Board`,
-        children: `Content of Tab Board`,
-    },
-    {
-        key: '3',
-        label: `Graph`,
-        children: `Content of Tab Graph`,
-    },
-    {
-        key: '4',
-        label: `Recent`,
-        children: `Content of Tab Recent`,
-    },
-];
-
 const Items = () => {
     const [gData, setGData] = useState(defaultData);
     const [expandedKeys] = useState(['0-0', '0-0-0', '0-0-0-0']);
@@ -83,12 +57,7 @@ const Items = () => {
         localStorage.setItem('gData', JSON.stringify(gData));
     }, [gData]);
 
-    const onDragEnter = (info) => {
-        console.log(info);
-    };
-
     const onDrop = (info) => {
-        console.log(info);
         const dropKey = info.node.key;
         const dragKey = info.dragNode.key;
         const dropPos = info.node.pos.split('-');
@@ -157,7 +126,6 @@ const Items = () => {
         if (!node.children) {
             setSelectedNode(node);
         }
-
         // Enable editing mode and set initial content
         setEditMode(true);
         setEditedContent(node.children);
@@ -169,7 +137,6 @@ const Items = () => {
             ...prevNode,
             children: editedContent
         }));
-
         // Disable editing mode
         setEditMode(false);
     };
@@ -185,7 +152,6 @@ const Items = () => {
             node.children.push(newNode);
             setGData([...gData]);
         };
-
         const handleRemoveNode = () => {
             const loop = (data, key, callback) => {
                 for (let i = 0; i < data.length; i++) {
@@ -197,14 +163,11 @@ const Items = () => {
                     }
                 }
             };
-
             loop(gData, node.key, (parent, index) => {
                 parent.splice(index, 1);
             });
-
             setGData([...gData]);
         };
-
         const handleEditNode = () => {
             setEditNodeKey(node.key);
             setEditNodeName(node.title);
@@ -224,12 +187,10 @@ const Items = () => {
             loop(gData, editNodeKey, (item) => {
                 item.title = editNodeName;
             });
-
             setGData([...gData]);
             setEditNodeKey(null);
             setEditNodeName('');
         };
-
         const isActive = selectedNode && selectedNode.key && selectedNode.key === node.key;
         const isLeaf = !node.children || node.children.length === 0; // Check if the node is a leaf node
 
@@ -257,21 +218,27 @@ const Items = () => {
                             {node.title}
                         </span>
                         <div>
-                            <Button
-                                icon={<PlusOutlined />}
-                                size="small"
-                                onClick={handleAddChild}
-                            />
-                            <Button
-                                icon={<MinusOutlined />}
-                                size="small"
-                                onClick={handleRemoveNode}
-                            />
-                            <Button
-                                icon={<EditOutlined />}
-                                size="small"
-                                onClick={handleEditNode}
-                            />
+                            <Tooltip title="Add Item">
+                                <Button
+                                    icon={<PlusOutlined />}
+                                    size="small"
+                                    onClick={handleAddChild}
+                                />
+                            </Tooltip>
+                            <Tooltip title="Delete Item">
+                                <Button
+                                    icon={<DeleteOutlined />}
+                                    size="small"
+                                    onClick={handleRemoveNode}
+                                />
+                            </Tooltip>
+                            <Tooltip title="Update Item Name">
+                                <Button
+                                    icon={<EditOutlined />}
+                                    size="small"
+                                    onClick={handleEditNode}
+                                />
+                            </Tooltip>
                         </div>
                     </>
                 )}
@@ -283,7 +250,7 @@ const Items = () => {
         <div className="nav-tabs">
             <Row>
                 <Col span={24}>
-                    <Tabs className="nav-top-tabs" defaultActiveKey="1" onChange={onChange}>
+                    <Tabs className="nav-top-tabs" defaultActiveKey="1">
                         {items.map(item => (
                             <Tabs.TabPane key={item.key} tab={item.label}>
                                 {item.key === '1' && (
@@ -302,7 +269,6 @@ const Items = () => {
                                                 defaultExpandedKeys={expandedKeys}
                                                 draggable
                                                 blockNode
-                                                onDragEnter={onDragEnter}
                                                 onDrop={onDrop}
                                                 treeData={gData}
                                                 titleRender={renderTitle}
