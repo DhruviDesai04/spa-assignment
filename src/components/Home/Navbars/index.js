@@ -9,7 +9,6 @@ const Navbars = () => {
     const [drawerVisible, setDrawerVisible] = useState(false);
 
     const onClick = (e) => {
-        console.log('click ', e);
         setCurrent(e.key);
     };
 
@@ -51,8 +50,8 @@ const Navbars = () => {
             <div className="navbars-content">
                 <div className="navbar">
                     <Menu mode="horizontal" selectedKeys={[current]}>
-                        <Row className="d-flex-btw w-100">
-                            <div>
+                        <Row className="nav-items d-flex-btw w-100">
+                            <div className="nav-items-left">
                                 <Menu.Item key="hamburger" onClick={showDrawer}>
                                     <MenuOutlined />
                                 </Menu.Item>
@@ -63,7 +62,7 @@ const Navbars = () => {
                                     />
                                 </Menu.Item>
                             </div>
-                            <div>
+                            <div className="nav-items-right">
                                 <Menu.Item key="addMembers" onClick={onClick}>
                                     <Button type="primary"><PlusOutlined /> INVITE TEAM MEMBER</Button>
                                 </Menu.Item>
