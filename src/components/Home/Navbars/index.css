@@ -1,0 +1,21 @@
+@media only screen and (max-width: 600px) {
+    .nav-items {
+        flex-direction: column;
+    }
+
+    .nav-items-left {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .nav-items-right {
+        display: flex;
+        justify-content: end;
+        width: 100%;
+    }
+
+    .ant-drawer-content-wrapper {
+        max-width: 250px;
+    }
+}

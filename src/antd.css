@@ -1,0 +1,45 @@
+.ant-divider-horizontal {
+    margin: 8px 0;
+}
+
+.ant-menu-light .ant-menu-item-selected,
+.ant-menu-light>.ant-menu .ant-menu-item-selected {
+    background-color: transparent !important;
+    color: var(--primary);
+}
+
+.ant-menu-horizontal .ant-menu-item,
+.ant-menu-horizontal .ant-menu-submenu {
+    padding: 0 10px;
+}
+
+.ant-input-group-wrapper {
+    vertical-align: middle;
+}
+
+.ant-btn-primary {
+    color: #fff;
+    background-color: var(--primary);
+    box-shadow: none;
+    border: 1px solid transparent;
+}
+
+.ant-btn-primary:not(:disabled):hover {
+    color: var(--primary);
+    background-color: var(--white);
+    box-shadow: none;
+    border: 1px solid var(--primary);
+}
+
+.ant-menu-light .ant-menu-item:not(.ant-menu-item-disabled):focus-visible,
+.ant-menu-light>.ant-menu .ant-menu-item:not(.ant-menu-item-disabled):focus-visible,
+.ant-menu-light .ant-menu-submenu-title:not(.ant-menu-item-disabled):focus-visible,
+.ant-menu-light>.ant-menu .ant-menu-submenu-title:not(.ant-menu-item-disabled):focus-visible,
+.ant-btn:not(:disabled):focus-visible {
+    outline: none !important;
+}
+
+.ant-menu-horizontal .ant-menu-item,
+.ant-menu-horizontal .ant-menu-submenu-title {
+    transition: none !important;
+}
