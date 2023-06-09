@@ -2,98 +2,102 @@
     width: 100%;
 }
 
-.nav-top-tabs .ant-tabs-nav .ant-tabs-tab-active {
+.nav-tabs .nav-top-tabs .ant-tabs-nav-wrap {
+    padding: 0 10px;
+}
+
+.nav-tabs .nav-top-tabs .ant-tabs-nav .ant-tabs-tab-active {
     border-bottom: none;
 }
 
-.ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn,
-.ant-tabs .ant-tabs-tab:hover {
+.nav-tabs .ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn,
+.nav-tabs .ant-tabs .ant-tabs-tab:hover {
     color: var(--primary);
 }
 
-.ant-tabs-top>.ant-tabs-nav {
+.nav-tabs .ant-tabs-top>.ant-tabs-nav {
     margin: 0 !important;
 }
 
-.add-collection-btn {
+.nav-tabs .add-collection-btn {
     margin: 20px 0 20px auto;
     width: max-content;
 }
 
-.items-tree {
+.nav-tabs .items-tree {
     padding: 10px;
     background: var(--gray);
     border-right: 2px solid var(--gray);
     min-height: 100vh;
 }
 
-.ant-tree {
+.nav-tabs .ant-tree {
     background-color: transparent;
 }
 
-.ant-tree .ant-tree-treenode {
+.nav-tabs .ant-tree .ant-tree-treenode {
     flex-wrap: wrap;
     align-items: center;
 }
 
-.ant-tree .ant-tree-treenode-draggable .ant-tree-draggable-icon {
+.nav-tabs .ant-tree .ant-tree-treenode-draggable .ant-tree-draggable-icon {
     width: 15px;
 }
 
-.ant-tree .ant-tree-node-content-wrapper span,
-.ant-tree .ant-tree-node-content-wrapper span .ant-space {
+.nav-tabs .ant-tree .ant-tree-node-content-wrapper span,
+.nav-tabs .ant-tree .ant-tree-node-content-wrapper span .ant-space {
     width: 100%;
     display: block;
 }
 
-.ant-tree .ant-tree-node-content-wrapper span .ant-space {
+.nav-tabs .ant-tree .ant-tree-node-content-wrapper span .ant-space {
     display: flex;
     justify-content: space-between;
     padding: 5px 0;
 }
 
-.ant-tree .ant-tree-node-content-wrapper span .ant-space input {
+.nav-tabs .ant-tree .ant-tree-node-content-wrapper span .ant-space input {
     border: 1px solid var(--primary);
     border-radius: 3px;
     padding: 5px 10px;
     color: var(--primary);
 }
 
-.ant-tree .ant-tree-node-content-wrapper span .ant-space .ant-space-item span {
+.nav-tabs .ant-tree .ant-tree-node-content-wrapper span .ant-space .ant-space-item span {
     font-weight: 500;
     word-break: break-all;
 }
 
-.ant-btn.ant-btn-sm.ant-btn-icon-only {
+.nav-tabs .ant-btn.ant-btn-sm.ant-btn-icon-only {
     margin: 0 3px;
 }
 
-.ant-btn-default:not(:disabled):hover {
+.nav-tabs .ant-btn-default:not(:disabled):hover {
     color: var(--primary);
     border-color: var(--primary);
 }
 
-.ant-tree .ant-tree-switcher {
+.nav-tabs .ant-tree .ant-tree-switcher {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 10px;
 }
 
-.ant-tree .ant-tree-node-content-wrapper:hover,
-.ant-tree .ant-tree-checkbox+span:hover {
+.nav-tabs .ant-tree .ant-tree-node-content-wrapper:hover,
+.nav-tabs .ant-tree .ant-tree-checkbox+span:hover {
     background-color: transparent;
     border-right: 3px solid var(--primary);
     border-radius: 0;
 }
 
-.ant-tree .ant-tree-node-content-wrapper,
-.ant-tree .ant-tree-checkbox+span {
+.nav-tabs .ant-tree .ant-tree-node-content-wrapper,
+.nav-tabs .ant-tree .ant-tree-checkbox+span {
     border-right: 3px solid transparent;
     border-radius: 0;
 }
 
-.ant-tree .ant-tree-node-content-wrapper.ant-tree-node-selected,
-.ant-tree .ant-tree-checkbox+span.ant-tree-node-selected {
+.nav-tabs .ant-tree .ant-tree-node-content-wrapper.ant-tree-node-selected,
+.nav-tabs .ant-tree .ant-tree-checkbox+span.ant-tree-node-selected {
     background-color: transparent;
 }

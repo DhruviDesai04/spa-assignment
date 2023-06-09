@@ -1,7 +1,6 @@
 import React from "react";
 import Navbars from "./Navbars/index";
 import Items from "./Items/index";
-import './Home.css';
 
 const Home = () => {
     return (
